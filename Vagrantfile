@@ -22,6 +22,7 @@ Vagrant.configure("2") do |config|
         master.vm.provider "virtualbox" do |vb|
             vb.name = "k8s-master"
         end
+        master.vm.synced_folder "k8s-files", "/home/vagrant/k8s-files", type: "rsync"
     end
 
     (1..N).each do |i|

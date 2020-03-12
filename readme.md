@@ -64,9 +64,15 @@ $> kubectl get namespaces
 # Get Kubernetes nodes
 $> kubectl get nodes
 # Running a single pod 
-$> kubectl run my-nginx --image nginx
+$> kubectl run my-apache --image httpd
 # List pods
 $> kubectl get pods
 # List all objects
 $> kubectl get all
+# Scaling pods
+$> kubectl scale deployment my-apache --replicas 2
+# Geting logs 
+$> kubectl logs deployment/my-apache
+# Describing pod
+$> kubectl describe pod my-apache-<hash>-<hash>
 ```
