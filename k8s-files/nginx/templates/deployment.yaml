@@ -22,11 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx
+  name: {{ .Release.Name }}
 spec:
   ports:
   - name: http
-    port: 80
+    port: {{ .Values.service.port }}
     targetPort: http
   selector:
     app: nginx

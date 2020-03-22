@@ -8,6 +8,7 @@
   - [Useful links](#useful-links)
   - [Useful commands](#useful-commands)
   - [Kubernetes commands](#kubernetes-commands)
+  - [Helm commands](#helm-commands)
 
 ## Vagrantfile compatibility versions
 
@@ -75,4 +76,16 @@ $> kubectl scale deployment my-apache --replicas 2
 $> kubectl logs deployment/my-apache
 # Describing pod
 $> kubectl describe pod my-apache-<hash>-<hash>
+```
+
+## Helm commands
+```sh
+# Build and name a new chart
+$> helm create <chart-name>
+# Test template 
+$> helm install <chart-name> --debug --dry-run --generate-name
+# Deploy template
+$> helm install <chart-name> --generate-name
+# Delete all charts
+$> helm del $(helm ls --all --short)
 ```
