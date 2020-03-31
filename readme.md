@@ -26,6 +26,8 @@
 - [Kubernetes dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
 - [Install shell completion](https://docs.docker.com/docker-for-mac/#install-shell-completion)
 - [Calico Project](https://www.projectcalico.org/)
+- [Helm Charts](https://github.com/helm/charts)
+- [Kubernetes-demo](https://github.com/LevelUpEducation/kubernetes-demo)
 
 ## Useful commands
 
@@ -86,6 +88,21 @@ $> helm create <chart-name>
 $> helm install <chart-name> --debug --dry-run --generate-name
 # Deploy template
 $> helm install <chart-name> --generate-name
+$> helm install <name> <chart-name>
 # Delete all charts
 $> helm del $(helm ls --all --short)
+# Downloading a new chart
+$> helm fetch stable/kibana
+$> helm fetch stable/kibana --untar
+# Listing repositories
+$> helm repo list
+# Listing available charts in repository
+$> helm repo update
+$> helm search repo <repo-name>
+# Adding new repository
+$> helm repo add <helm_repository_name> http://<host>:<port>/repository/<nexus_repository_name>/ --username <username> --password <password>
+# Uploading a chart to Nexus3 (https://github.com/sonatype-nexus-community/helm-nexus-push)
+$> helm package <chart-name>
+$> helm plugin install --version master https://github.com/sonatype-nexus-community/helm-nexus-push.git
+$> helm nexus-push <repo> <chart>.tgz --username <username> --password <password>
 ```
