@@ -17,7 +17,7 @@ spec:
         - name: wordpress
           image: wordpress
           ports:
-          - containerPort: 80
+          - containerPort: {{ .Values.service.port }}
           volumeMounts:
           - name: wordpress-persistent-storage
             mountPath: /var/www/html
