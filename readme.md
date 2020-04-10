@@ -60,6 +60,10 @@ $> vagrant destroy -f
 ## Kubernetes commands
 
 ```sh
+# Get available versions
+$> kubectl api-versions
+# Get available resources
+$> kubectl api-resources
 # Get Kubernetes version
 $> kubectl version
 # Get Kubernetes Namespaces
@@ -78,6 +82,8 @@ $> kubectl scale deployment my-apache --replicas 2
 $> kubectl logs deployment/my-apache
 # Describing pod
 $> kubectl describe pod my-apache-<hash>-<hash>
+# See deployment history
+$> kubectl roolout history deployment <deployment-name>
 ```
 
 ## Helm commands
