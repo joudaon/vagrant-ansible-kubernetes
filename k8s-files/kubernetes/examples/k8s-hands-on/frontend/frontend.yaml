@@ -1,0 +1,35 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+    name: frontend-k8s-hands-on
+    labels:
+        app: frontend
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: frontend
+    template:
+        metadata:
+            labels:
+                app: frontend
+        spec:
+            containers:
+            - image: ricardoandre97/frontend-k8s-hands-on:v1
+              name: frontend
+              imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: frontend-k8s-hands-on
+    labels:
+        app: frontend
+spec:
+    type: NodePort
+    selector:
+        app: frontend
+    ports:
+        - protocol: TCP
+          port: 80
+          nodePort: 30090

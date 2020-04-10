@@ -1,0 +1,17 @@
+<div id="id01"></div>
+<img src="https://d1.awsstatic.com/PAC/kuberneteslogo.eabc6359f48c8e30b7a138c18177f3fd39338e05.png"></img>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+var url = "http://backend-k8s-hands-on";
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var resp = JSON.parse(this.responseText);
+        document.getElementById("id01").innerHTML = "<h2>La hora es " + resp.time + " y el hostname es " + resp.hostname + "<h2>";
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+</script>

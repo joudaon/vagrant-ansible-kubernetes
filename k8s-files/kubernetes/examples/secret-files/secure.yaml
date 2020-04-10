@@ -1,0 +1,15 @@
+# Use "$> envsubst":
+# '''
+# $> export USER=myuser
+# $> export PASSWORD=mypassword
+# $> envsubst < secure.yaml > tmp.yaml
+# '''
+ 
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+stringData:
+  username: $USER
+  password: $PASSWORD

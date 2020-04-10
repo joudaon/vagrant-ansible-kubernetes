@@ -1,0 +1,22 @@
+# the folder is created inside the pod. It will only be deleted when pod is killed.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - image: nginx:alpine
+    name: nginx
+    env:
+      - name: MYNODENAME
+        valueFrom:
+          fieldRef:
+            fieldPath: spec.nodeName
+      - name: MYPODNAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
+      - name: MYPODIP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.podIP

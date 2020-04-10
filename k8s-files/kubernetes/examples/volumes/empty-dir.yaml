@@ -1,0 +1,15 @@
+# the folder is created inside the pod. It will only be deleted when pod is killed.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: nginx:alpine
+    name: test-container
+    volumeMounts:
+    - mountPath: /var/log/nginx
+      name: vol
+  volumes:
+  - name: vol
+    emptyDir: {}
