@@ -36,10 +36,10 @@ Vagrant.configure("2") do |config|
   end
 
   (1..N).each do |i|
-    config.vm.define "node-#{i}" do |node|
+    config.vm.define "k8s-node-#{i}" do |node|
       node.vm.box = IMAGE_NAME
       node.vm.network "private_network", ip: "192.168.50.#{i + 10}"
-      node.vm.hostname = "node-#{i}"
+      node.vm.hostname = "k8s-node-#{i}"
       if Vagrant.has_plugin?("vagrant-hosts")
         node.vm.provision :hosts, :sync_hosts => true
       end
