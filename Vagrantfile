@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
         }
       end
       node.vm.provider "virtualbox" do |vb|
-        vb.name = "node-#{i}"
+        vb.name = "k8s-node-#{i}"
       end
     end
   end
