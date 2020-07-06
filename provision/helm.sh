@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Dowload page: https://github.com/helm/helm/releases
+
 helm_version="helm-v3.1.2-linux-amd64.tar.gz"
 
 echo "--> Installing helm."
