@@ -28,6 +28,8 @@
 - [Calico Project](https://www.projectcalico.org/)
 - [Helm Charts](https://github.com/helm/charts)
 - [Kubernetes-demo](https://github.com/LevelUpEducation/kubernetes-demo)
+- [wardviaene/kubernetes-course: Kubernetes Course Files](https://github.com/wardviaene/kubernetes-course)
+- [ricardoandre97/k8s-resources](https://github.com/ricardoandre97/k8s-resources)
 
 ## Useful commands
 
