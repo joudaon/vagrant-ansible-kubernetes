@@ -17,6 +17,7 @@
 | v2.2.4          | Version 6.0.10 r132072 (Qt5.6.2)  |
 | v2.2.5          | Version 6.0.10 r132072 (Qt5.6.2)  |
 |                 | Version 6.0.10 r132072 (Qt5.9.5)  |
+| v2.2.14         | Version 6.1.16 r140961 (Qt5.9.5)  |
 
 ## Useful links
 

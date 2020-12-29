@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 1024
+    v.memory = 2048
     v.cpus = 2
   end
       
@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
       vb.name = "k8s-master"
     end
     master.vm.synced_folder "k8s-files", "/home/vagrant/k8s-files", type: "rsync"
-    master.vm.provision "shell", privileged: true, path: "provision/helm.sh"
+    master.vm.provision "shell", privileged: true, path: "provision/k8s_tools.sh"
   end
 
   (1..N).each do |i|
