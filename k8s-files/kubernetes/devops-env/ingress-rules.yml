@@ -1,0 +1,59 @@
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: my-custom-ingress
+#   namespace: devops-apps
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /jenkins
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: jenkins
+#             port: 
+#               number: 8080
+#       - path: /webconsole
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: webconsole
+#             port: 
+#               number: 8081
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-devops-apps
+  namespace: devops-apps
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: jenkins.devopsapps.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: jenkins
+            port:
+              number: 8080
+  - host: webconsole.devopsapps.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: webconsole
+            port:
+              number: 8081
