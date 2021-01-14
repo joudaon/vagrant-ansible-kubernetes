@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
       - name: webconsole
-        image:  cdue/webconsole:latest
+        image: cdue/webconsole:latest
         imagePullPolicy: IfNotPresent
         resources:
           limits:
