@@ -1,4 +1,4 @@
-IMAGE_NAME = "ubuntu/xenial64"
+IMAGE_NAME = "ubuntu/bionic64"
 N = 2
 
 Vagrant.configure("2") do |config|
@@ -17,10 +17,10 @@ Vagrant.configure("2") do |config|
       master.vm.provision :hosts, :sync_hosts => true
     end
     master.vm.provision "ansible_local" do |ansible|
-      ansible.compatibility_mode = "2.0"
+      # ansible.compatibility_mode = "2.0"
       ansible.playbook = "kubernetes-setup/master-playbook.yml"
-      ansible.pip_install_cmd = "curl https://bootstrap.pypa.io/get-pip.py | sudo python3"
-      ansible.install_mode = "pip"
+      # ansible.pip_install_cmd = "curl https://bootstrap.pypa.io/get-pip.py | sudo python3"
+      # ansible.install_mode = "pip"
       # Install desired ansible version (default = latest)
       # ansible.version = "2.9.6"
       ansible.extra_vars = {
@@ -44,10 +44,10 @@ Vagrant.configure("2") do |config|
         node.vm.provision :hosts, :sync_hosts => true
       end
       node.vm.provision "ansible_local" do |ansible|
-        ansible.compatibility_mode = "2.0"
+        # ansible.compatibility_mode = "2.0"
         ansible.playbook = "kubernetes-setup/node-playbook.yml"
-        ansible.pip_install_cmd = "curl https://bootstrap.pypa.io/get-pip.py | sudo python3"
-        ansible.install_mode = "pip"
+        # ansible.pip_install_cmd = "curl https://bootstrap.pypa.io/get-pip.py | sudo python3"
+        # ansible.install_mode = "pip"
         # Install desired ansible version (default = latest)
         # ansible.version = "2.9.6"
         ansible.extra_vars = {
