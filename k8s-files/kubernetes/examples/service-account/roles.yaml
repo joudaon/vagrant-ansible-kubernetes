@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jenkins-ns
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins-sa
+  namespace: jenkins-ns
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: jenkins-role
+  namespace: jenkins-ns # Should be namespace you are granting access to
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-rolebinding
+  namespace: jenkins-ns # Should be namespace you are granting access to
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: jenkins-role # Should match name of Role
+subjects:
+- namespace: jenkins-ns # Should match namespace where SA lives
+  kind: ServiceAccount
+  name: jenkins-sa # Should match service account name, above
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  namespace: jenkins-ns
+  labels:
+    app: myapp
+spec:
+  containers:
+    - name: myapp-container
+      image: nginx:alpine
+      resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 1
+            memory: 1Gi
