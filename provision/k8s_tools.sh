@@ -1,7 +1,7 @@
 #!/bin/bash
 
 HELM_VERSION="helm-v3.4.2-linux-amd64.tar.gz"
-K9S_VERSION="v0.24.7"
+K9S_VERSION="v0.24.10"
 
 ####################
 ####### helm #######
