@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MINIKUBE_VERSION="v1.20.0"
+MINIKUBE_VERSION="v1.25.1"
 
 echo "----> Installing minikube."
 
