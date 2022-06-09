@@ -4,20 +4,27 @@ metadata:
   name: enable-namespace-1-pod-communitacion
   namespace: namespace-1
 spec:
-  podSelector:
-    matchLabels:
-      namespace: namespace-1
+  podSelector: {}
   policyTypes:
   - Ingress
   - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: namespace-1
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            namespace: namespace-1
-      ports:
-        - protocol: TCP
-          port: 8080
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: namespace-1
+    ports:
+    - port: 80
+      protocol: TCP
+    - port: 8080
+      protocol: TCP
+    - port: 443
+      protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -25,17 +32,24 @@ metadata:
   name: enable-namespace-2-pod-communitacion
   namespace: namespace-2
 spec:
-  podSelector:
-    matchLabels:
-      namespace: namespace-2
+  podSelector: {}
   policyTypes:
   - Ingress
   - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: namespace-2
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            namespace: namespace-2
-      ports:
-        - protocol: TCP
-          port: 8080
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: namespace-2
+    ports:
+    - port: 80
+      protocol: TCP
+    - port: 8080
+      protocol: TCP
+    - port: 443
+      protocol: TCP
