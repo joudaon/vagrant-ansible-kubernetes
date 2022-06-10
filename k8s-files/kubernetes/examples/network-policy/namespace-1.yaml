@@ -10,51 +10,6 @@ kind: Deployment
 metadata:
   annotations:
     kubernetes.io/change-cause: "New change"
-  name: busybox
-  namespace: namespace-1
-  labels:
-    app: busybox
-    namespace: namespace-1
-spec:
-  revisionHistoryLimit: 5
-  replicas: 1
-  selector:
-    matchLabels:
-      app: busybox
-  template:
-    metadata:
-      labels:
-        app: busybox
-    spec:
-      containers:
-      - name: busybox
-        image: busybox
-        # command: ["tail -f /dev/null"]
-        command: ["sleep", "60m"]
-      restartPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: busybox
-  namespace: namespace-1
-  labels:
-    app: busybox
-    namespace: namespace-1
-spec:
-  type: ClusterIP
-  selector:
-    app: busybox
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 80
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  annotations:
-    kubernetes.io/change-cause: "New change"
   name: nginx
   namespace: namespace-1
   labels:
@@ -104,7 +59,7 @@ metadata:
     app: apache
     namespace: namespace-1
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: apache
@@ -182,7 +137,7 @@ spec:
       - name: busybox-improved
         image: radial/busyboxplus:curl
         # command: ["tail -f /dev/null"]
-        command: ["sleep", "600"]
+        command: ["sleep", "6000"]
       restartPolicy: Always
 ---
 apiVersion: v1
