@@ -31,3 +31,6 @@ The API server can then be accessed using https://localhost:8080
 
 - [Argo CD - Declarative GitOps CD for Kubernetes](https://argo-cd.readthedocs.io/en/stable/)
 - [Implementando GitOps con ArgoCD](https://www.adictosaltrabajo.com/2020/05/25/implementando-gitops-con-argocd/)
+- [Helm chart + values files from Git](https://github.com/argoproj/argo-cd/issues/2789#issuecomment-574821873)
+- [Feature: External Helm values from git](https://github.com/argoproj/argo-cd/pull/6280)
+- [One option to setup an app-of-apps example in Argo CD](https://suedbroecker.net/2022/08/22/one-option-to-setup-an-app-of-apps-example-in-argo-cd/)

@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-nginx
+  namespace: argocd
+  labels:
+    name: helm-nginx
+    environment: dev
+spec:
+  destination:
+    name: ''
+    namespace: nginx
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: k8s-files/helm/nginx
+    repoURL: 'https://github.com/joudaon/vagrant-ansible-kubernetes.git'
+    targetRevision: HEAD
+    helm:
+      parameters:
+        - name: replicas
+          value: '3'
+      # valueFiles:
+      #   - values.yaml
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
