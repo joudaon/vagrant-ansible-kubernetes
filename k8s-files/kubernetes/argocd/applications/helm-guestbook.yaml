@@ -16,6 +16,7 @@ spec:
     targetRevision: HEAD
   project: default
   syncPolicy:
+    automated:
+      selfHeal: true
     syncOptions:
     - CreateNamespace=true
-

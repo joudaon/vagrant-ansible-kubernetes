@@ -2,9 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: bootstrap
-  namespace: bootstrap
+  namespace: argocd
   labels:
-    name: argocd
+    name: bootstrap
     environment: dev
 spec:
   destination:
@@ -12,7 +12,7 @@ spec:
     namespace: bootstrap
     server: 'https://kubernetes.default.svc'
   source:
-    path: k8s-files/kubernetes/applications
+    path: k8s-files/kubernetes/argocd/applications
     repoURL: 'https://github.com/joudaon/vagrant-ansible-kubernetes.git'
     targetRevision: HEAD
   project: default

@@ -27,6 +27,12 @@ $> kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.
 
 The API server can then be accessed using https://localhost:8080
 
+Run `bootstrap.yaml` application file to create all the applications inside `application` folder.
+
+```sh
+$> kubectl apply -f bootstrap.yaml
+```
+
 # Documentation
 
 - [Argo CD - Declarative GitOps CD for Kubernetes](https://argo-cd.readthedocs.io/en/stable/)
