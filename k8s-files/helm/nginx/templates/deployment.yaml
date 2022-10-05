@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: nginx
-  replicas: {{ .Values.replicas.port }}
+  replicas: {{ .Values.replicas }}
   template:
     metadata:
       labels:
