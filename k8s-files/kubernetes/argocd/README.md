@@ -1,5 +1,13 @@
 # Getting started
 
+- [Getting started](#getting-started)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Create applications](#create-applications)
+  - [Creating local users/accounts](#creating-local-usersaccounts)
+  - [RBAC](#rbac)
+- [Documentation](#documentation)
+
 ## Requirements
 
 - Minikube
@@ -27,11 +35,62 @@ $> kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.
 
 The API server can then be accessed using https://localhost:8080
 
+## Create applications
+
 Run `bootstrap.yaml` application file to create all the applications inside `application` folder.
 
 ```sh
 $> kubectl apply -f bootstrap.yaml
 ```
+
+## Creating local users/accounts
+
+Login and download `argo-cm.yaml` config map file:
+
+```sh
+$> argocd login localhost:8080 --username admin
+$> argocd account list
+$> kubectl get configmap argocd-cm -n argocd -o yaml > argocd-cm.yml
+```
+
+Add the following text block to the `argo-cm.yaml` file:
+
+```yaml
+data:
+  accounts.joudaon: login
+```
+
+Update user password:
+
+```sh
+# if you are managing users as the admin user, <current-user-password> should be the current admin password.
+$> argocd account update-password \
+  --account <name> \
+  --current-password <current-user-password> \
+  --new-password <new-user-password>
+```
+
+## RBAC
+
+Download `argocd-rbac.yml` config map file
+
+```sh
+$> kubectl get configmap argocd-rbac-cm -n argocd -o yaml > argocd-rbac.yml
+```
+
+Add the following text block to the `argocd-rbac.yml` file:
+
+```yaml
+data:
+  policy.csv: |
+    p, role:org-admin, applications, *, */*, allow
+    g, joudaon, role:org-admin
+  policy.default: role:''
+```
+
+Now user should be able to log in and see applications.
+
+- [Create a New User in ArgoCD using the CLI and ConfigMap](https://medium.com/geekculture/create-a-new-user-in-argocd-using-the-cli-and-configmap-8cbb27cf5904)
 
 # Documentation
 
