@@ -90,6 +90,28 @@ data:
 
 Now user should be able to log in and see applications.
 
+## Multiple Kubernetes Cluster in ArgoCD
+
+Start 2 minikube instances (they must be in the same network):
+
+```sh
+$> minikube start -p cluster1 --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --memory=3gb --vm-driver=virtualbox
+$> minikube start -p cluster2 --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --memory=3gb --vm-driver=virtualbox
+$> minikube profile list
+# Switch to cluster1 context
+$> kubectl config use-context cluster1
+```
+
+Login into argocg cli and run the following command:
+
+```sh
+$> argocd login localhost:8080 --username admin
+$> argocd cluster add cluster2
+$> argocd cluster list
+```
+
+Update application yaml to point destination cluster name to `cluster2`
+
 - [Create a New User in ArgoCD using the CLI and ConfigMap](https://medium.com/geekculture/create-a-new-user-in-argocd-using-the-cli-and-configmap-8cbb27cf5904)
 
 # Documentation
@@ -99,3 +121,4 @@ Now user should be able to log in and see applications.
 - [Helm chart + values files from Git](https://github.com/argoproj/argo-cd/issues/2789#issuecomment-574821873)
 - [Feature: External Helm values from git](https://github.com/argoproj/argo-cd/pull/6280)
 - [One option to setup an app-of-apps example in Argo CD](https://suedbroecker.net/2022/08/22/one-option-to-setup-an-app-of-apps-example-in-argo-cd/)
+- [](https://github.com/argoproj/argo-cd/issues/4204)
