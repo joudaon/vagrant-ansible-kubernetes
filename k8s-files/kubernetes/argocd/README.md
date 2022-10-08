@@ -6,6 +6,7 @@
   - [Create applications](#create-applications)
   - [Creating local users/accounts](#creating-local-usersaccounts)
   - [RBAC](#rbac)
+  - [Multiple Kubernetes Cluster in ArgoCD](#multiple-kubernetes-cluster-in-argocd)
 - [Documentation](#documentation)
 
 ## Requirements
@@ -90,6 +91,8 @@ data:
 
 Now user should be able to log in and see applications.
 
+- [Create a New User in ArgoCD using the CLI and ConfigMap](https://medium.com/geekculture/create-a-new-user-in-argocd-using-the-cli-and-configmap-8cbb27cf5904)
+
 ## Multiple Kubernetes Cluster in ArgoCD
 
 Start 2 minikube instances (they must be in the same network):
@@ -111,8 +114,6 @@ $> argocd cluster list
 ```
 
 Update application yaml to point destination cluster name to `cluster2`
-
-- [Create a New User in ArgoCD using the CLI and ConfigMap](https://medium.com/geekculture/create-a-new-user-in-argocd-using-the-cli-and-configmap-8cbb27cf5904)
 
 # Documentation
 
