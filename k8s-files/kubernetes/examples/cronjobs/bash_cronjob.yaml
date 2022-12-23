@@ -1,8 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+---
 #cronjob.yaml
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: countdown
+  namespace: test
 spec:
     #min hour day-of-month month day-of-week
   schedule: "*/1 * * * *" #every minute
@@ -14,7 +20,7 @@ spec:
           - name: countdown
             image: ubuntu
             args:
-            - /bin/sh
+            - /bin/bash
             - -c
-            - "for i in {0..15} ; do echo $i ; sleep 1; done"
-          restartPolicy: OnFailure
+            - "for i in {1..15} ; do echo $i ; sleep 1; done"
+          restartPolicy: Never
