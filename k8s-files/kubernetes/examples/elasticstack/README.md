@@ -7,6 +7,15 @@
 
 1. Run `install.sh` script.
 
+## Setup filebeat index on Kibana
+
+1. Go to `Stack Management`.
+2. Go to `Kibana > Data Views` and click on `Create data view`.
+3. Fulfill `Name` and `Index pattern` with `filebeat-*`.
+4. Click `Save data view to Kibana`.
+
+Now you should see logs on `Discover` tab on the left pane.
+
 ## Useful information:
 
 - [Github - Elastic Helm charts](https://github.com/elastic/helm-charts)
