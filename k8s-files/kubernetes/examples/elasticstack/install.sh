@@ -5,8 +5,8 @@ IMAGE_VERSION=8.5.1
 ## Set docker as default driver
 minikube config set driver docker
 
-## Start Minikube with a built-in Calico implementation, this is a quick way to checkout Calico features.
-minikube start --memory 8192 --cpus 4 # --nodes 2
+## Start minikube
+minikube start --memory 8192 --cpus 4
 
 ## Install kube-state-metrics
 echo "--> Installing kube-state-metrics"

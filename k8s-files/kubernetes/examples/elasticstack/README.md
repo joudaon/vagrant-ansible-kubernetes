@@ -23,3 +23,4 @@ Now you should see logs on `Discover` tab on the left pane.
 - [Kubernetes ElasticSearch with Helm minikube](https://www.bogotobogo.com/DevOps/Docker/Docker_Kubernetes_ElasticSearch_with_Helm_minikube.php)
 - [Use Helm 3 to Install ELK Stack on Minikube in 10 Mins](https://www.youtube.com/watch?v=ObLXSMfDX1o)
 - [Filebeat + Elk Stack Tutorial With Kubernetes](https://www.youtube.com/watch?v=SU--XMhbWoY)
+- [minikube start](https://minikube.sigs.k8s.io/docs/commands/start/)
