@@ -35,7 +35,7 @@ spec:
   - route:
     - destination:
         host: nginx.nginx-namespace.svc.cluster.local
-        port: 
+        port:
           number: 80
 ---
 apiVersion: v1

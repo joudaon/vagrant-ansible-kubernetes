@@ -21,11 +21,12 @@ istioctl dashboard jaeger
 kubectl apply -f nginx-example.yaml
 # enable minikube tunnel to get loadbalancer ips
 minikube tunnel
-# Export minikube variables
+# Export external load balancer
 export INGRESS_HOST=$(kubectl -n loadbalancer-external get service loadbalancer-external -o jsonpath='{.status.loadBalancer.ingress[0].ip}') 
 export INGRESS_PORT=$(kubectl -n loadbalancer-external get service loadbalancer-external -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')
 export SECURE_INGRESS_PORT=$(kubectl -n loadbalancer-external get service loadbalancer-external -o jsonpath='{.spec.ports[?(@.name=="https")].port}')
 export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
+echo "Load balancer URL: $GATEWAY_URL"
 # Curl application 
 while true; do curl $GATEWAY_URL; done
 # Go to Kiali and see graphs
