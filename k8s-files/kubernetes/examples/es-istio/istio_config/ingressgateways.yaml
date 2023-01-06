@@ -1,0 +1,35 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: gateway-internal
+spec:
+  profile: empty
+  components:
+    ingressGateways:
+      - name: loadbalancer-internal
+        namespace: loadbalancer-internal
+        enabled: true
+        label:
+          istio: loadbalancer-internal
+        k8s:
+          serviceAnnotations:
+            networking/load-balancer.type: "Internal"
+---
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: gateway-external
+spec:
+  profile: empty
+  components:
+    ingressGateways:
+      - name: loadbalancer-external
+        namespace: loadbalancer-external
+        enabled: true
+        label:
+          istio: loadbalancer-external
+        k8s:
+          serviceAnnotations:
+            networking/load-balancer.type: "External"
