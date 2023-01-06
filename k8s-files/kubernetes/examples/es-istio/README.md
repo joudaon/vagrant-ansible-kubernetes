@@ -20,6 +20,8 @@ export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
 echo "Load balancer URL: $GATEWAY_URL"
 # Curl application
 while true; do curl $GATEWAY_URL/apache; done
+# Curl stikcy session
+while true; do curl --cookie "apache=<get cookie id>" $GATEWAY_URL/apache; done
 # Go to Kiali and jaeger and see graphs
 kubectl port-forward svc/kiali 20001:20001 -n istio-system
 istioctl dashboard jaeger
