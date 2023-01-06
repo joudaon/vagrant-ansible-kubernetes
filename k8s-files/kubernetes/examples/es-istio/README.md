@@ -42,3 +42,4 @@ Now you should see logs on `Discover` tab on the left pane.
 - [Use Helm 3 to Install ELK Stack on Minikube in 10 Mins](https://www.youtube.com/watch?v=ObLXSMfDX1o)
 - [Filebeat + Elk Stack Tutorial With Kubernetes](https://www.youtube.com/watch?v=SU--XMhbWoY)
 - [minikube start](https://minikube.sigs.k8s.io/docs/commands/start/)
+- [Istio monitoring with Elastic Observability](https://www.elastic.co/blog/istio-monitoring-with-elastic-observability)
