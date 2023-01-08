@@ -54,9 +54,10 @@ kubectl create namespace loadbalancer-external
 istio-$ISTIO_VERSION/bin/istioctl operator init
 kubectl apply -f istio_config/istiocontrolplane.yaml
 kubectl apply -f istio_config/ingressgateways.yaml
+sleep 1m
 kubectl apply -f istio_config/gateways.yaml
 kubectl apply -f istio-$ISTIO_VERSION/samples/addons/
-sleep 15s
+sleep 10s
 
 ## Deploy apache example application
 echo "--> Installing apache example application"
