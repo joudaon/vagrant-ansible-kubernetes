@@ -9,7 +9,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: gateway-external
-  namespace: nginx-namespace
+  namespace: istio-system
 spec:
   selector:
     istio: loadbalancer-external # use istio default controller
@@ -30,7 +30,7 @@ spec:
   hosts:
     - '*'
   gateways:
-    - gateway-external
+    - istio-system/gateway-external
   http:
   - route:
     - destination:

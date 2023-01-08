@@ -9,7 +9,6 @@
 ## Install addons (kiali, jaeger)
 
 ```sh
-kubectl apply -f ./${ISTIO_HOME}/samples/addons/
 kubectl port-forward svc/kiali 20001:20001 -n istio-system
 istioctl dashboard jaeger
 ```
@@ -22,13 +21,13 @@ kubectl apply -f nginx-example.yaml
 # enable minikube tunnel to get loadbalancer ips
 minikube tunnel
 # Export external load balancer
-export INGRESS_HOST=$(kubectl -n loadbalancer-external get service loadbalancer-external -o jsonpath='{.status.loadBalancer.ingress[0].ip}') 
-export INGRESS_PORT=$(kubectl -n loadbalancer-external get service loadbalancer-external -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')
-export SECURE_INGRESS_PORT=$(kubectl -n loadbalancer-external get service loadbalancer-external -o jsonpath='{.spec.ports[?(@.name=="https")].port}')
+export INGRESS_HOST=$(kubectl -n istio-system get service loadbalancer-external -o jsonpath='{.status.loadBalancer.ingress[0].ip}') 
+export INGRESS_PORT=$(kubectl -n istio-system get service loadbalancer-external -o jsonpath='{.spec.ports[?(@.name=="http2")].port}')
+export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service loadbalancer-external -o jsonpath='{.spec.ports[?(@.name=="https")].port}')
 export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
 echo "Load balancer URL: $GATEWAY_URL"
 # Curl application 
-while true; do curl $GATEWAY_URL; done
+while true; do curl $GATEWAY_URL; sleep 0.5; done
 # Go to Kiali and see graphs
 ```
 

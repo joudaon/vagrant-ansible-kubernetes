@@ -8,7 +8,7 @@ spec:
   components:
     ingressGateways:
       - name: loadbalancer-internal
-        namespace: loadbalancer-internal
+        namespace: istio-system
         enabled: true
         label:
           istio: loadbalancer-internal
@@ -26,7 +26,7 @@ spec:
   components:
     ingressGateways:
       - name: loadbalancer-external
-        namespace: loadbalancer-external
+        namespace: istio-system
         enabled: true
         label:
           istio: loadbalancer-external
