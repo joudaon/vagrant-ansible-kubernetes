@@ -19,7 +19,7 @@ export SECURE_INGRESS_PORT=$(kubectl -n loadbalancer-external get service loadba
 export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
 echo "Load balancer URL: $GATEWAY_URL"
 # Curl application
-while true; do curl $GATEWAY_URL/apache; done
+while true; do curl $GATEWAY_URL/apache; sleep 0.5; done
 # Curl stikcy session
 while true; do curl --cookie "apache=<get cookie id>" $GATEWAY_URL/apache; done
 # Go to Kiali and jaeger and see graphs
@@ -45,3 +45,4 @@ Now you should see logs on `Discover` tab on the left pane.
 - [Filebeat + Elk Stack Tutorial With Kubernetes](https://www.youtube.com/watch?v=SU--XMhbWoY)
 - [minikube start](https://minikube.sigs.k8s.io/docs/commands/start/)
 - [Istio monitoring with Elastic Observability](https://www.elastic.co/blog/istio-monitoring-with-elastic-observability)
+- [Istio component status](https://kiali.io/docs/features/istio-component-status/)

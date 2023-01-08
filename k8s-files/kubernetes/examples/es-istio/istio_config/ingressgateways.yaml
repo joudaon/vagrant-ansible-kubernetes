@@ -1,8 +1,8 @@
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 metadata:
-  namespace: istio-system
   name: gateway-internal
+  namespace: istio-system
 spec:
   profile: empty
   components:
@@ -19,8 +19,8 @@ spec:
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 metadata:
-  namespace: istio-system
   name: gateway-external
+  namespace: istio-system
 spec:
   profile: empty
   components:

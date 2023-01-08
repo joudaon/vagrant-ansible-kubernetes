@@ -6,22 +6,6 @@ metadata:
     istio-injection: enabled
 ---
 apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: gateway-external
-  namespace: apache-namespace
-spec:
-  selector:
-    istio: loadbalancer-external # use istio default controller
-  servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-    - "*"
----
-apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: apache-virtualservice
@@ -30,7 +14,7 @@ spec:
   hosts:
     - '*'
   gateways:
-    - gateway-external
+    - loadbalancer-external/istio-ingressgateway-external
   http:
   - match:
     - uri:
@@ -52,9 +36,7 @@ spec:
   trafficPolicy:
     loadBalancer:
       consistentHash:
-        httpCookie:
-          name: apache
-          ttl: 0s
+        useSourceIp: true
 ---
 apiVersion: v1
 kind: Service

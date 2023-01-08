@@ -45,15 +45,21 @@ kubectl exec -it $METRICBEAT_POD -n elk -- /bin/bash -c "metricbeat setup --dash
 sleep 10s
 
 ## Install istio
+echo "--> Installing istio components"
 curl -L https://istio.io/downloadIstio | sh -
 kubectl create namespace loadbalancer-internal
+# kubectl label namespace loadbalancer-internal istio-injection=enabled --overwrite
 kubectl create namespace loadbalancer-external
+# kubectl label namespace loadbalancer-external istio-injection=enabled --overwrite
 istio-$ISTIO_VERSION/bin/istioctl operator init
 kubectl apply -f istio_config/istiocontrolplane.yaml
 kubectl apply -f istio_config/ingressgateways.yaml
+kubectl apply -f istio_config/gateways.yaml
 kubectl apply -f istio-$ISTIO_VERSION/samples/addons/
+sleep 15s
 
 ## Deploy apache example application
+echo "--> Installing apache example application"
 kubectl apply -f apache-example.yaml
 
 # Get credentials
@@ -63,6 +69,7 @@ ELASTIC_PASSWORD="$(kubectl get secrets --namespace=elk elasticsearch-master-cre
 echo "Kibana URL --> $(minikube ip):$NODEPORT"
 echo "Kibana username --> elastic"
 echo "Kibana password --> $ELASTIC_PASSWORD"
+echo "Please run 'minikube tunnel' to enable access to load balancers"
 
 ## Export port
 # kubectl port-forward deployment/kibana-kibana 5601 -n elk
