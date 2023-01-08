@@ -1,3 +1,7 @@
+## Desciption
+
+This example deploy a minikube cluster with `elastick-stack` and istio service mesh.
+
 ## Requirements
 
 - minikube
