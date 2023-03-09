@@ -1,0 +1,59 @@
+## Scaled object based on cpu usage
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: so-php-apache
+  namespace: default
+  labels:
+    deploymentName: php-apache
+spec:
+  scaleTargetRef:
+    name: php-apache
+  pollingInterval: 10 # Optional. Default: 30 seconds
+  cooldownPeriod: 60 # Optional. Default: 300 seconds
+  minReplicaCount: 1 # Optional. Default: 0
+  maxReplicaCount: 10 # Optional. Default: 100
+  triggers:
+    - type: cpu
+      metricType: Utilization # Allowed types are 'Utilization' or 'AverageValue'
+      metadata:
+        # type: Utilization # Deprecated in favor of trigger.metricType; allowed types are 'Utilization' or 'AverageValue'
+        value: "60"
+        # containerName: "" # Optional. You can use this to target a specific container in a pod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-apache
+spec:
+  selector:
+    matchLabels:
+      run: php-apache
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: php-apache
+    spec:
+      containers:
+      - name: php-apache
+        image: k8s.gcr.io/hpa-example
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-apache
+  labels:
+    run: php-apache
+spec:
+  ports:
+  - port: 80
+  selector:
+    run: php-apache
