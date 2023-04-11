@@ -44,6 +44,14 @@ METRICBEAT_POD=$(kubectl get pod -n elk | grep metricbeat | awk '{ print $1 }')
 kubectl exec -it $METRICBEAT_POD -n elk -- /bin/bash -c "metricbeat setup --dashboards -E output.elasticsearch.hosts=['elasticsearch-master:9200'] -E setup.kibana.host=kibana-kibana:5601"
 sleep 10s
 
+## Deploying Utils app (don't do this in production)
+echo "--> Deploying Utils app"
+kubectl apply -f dnsutils.yaml
+
+## Generate counter deployment (log generator)
+echo "--> Deploying Counter app"
+kubectl apply -f counter.yaml
+
 # Get credentials
 echo "--> Installation finished!"
 NODEPORT=$(kubectl get service kibana-service --namespace=elk -ojsonpath='{.spec.ports[0].nodePort}')
