@@ -105,7 +105,7 @@ $> minikube profile list
 $> kubectl config use-context cluster1
 ```
 
-Login into argocg cli and run the following command:
+Login into argocd cli and run the following command:
 
 ```sh
 $> argocd login localhost:8080 --username admin

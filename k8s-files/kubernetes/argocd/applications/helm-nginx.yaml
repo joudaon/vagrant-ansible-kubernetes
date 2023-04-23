@@ -21,7 +21,7 @@ spec:
           value: '3'
       # valueFiles:
       #   - values.yaml
-  project: default
+  project: mynginxproject
   syncPolicy:
     automated:
       selfHeal: true
