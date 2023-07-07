@@ -34,5 +34,5 @@ helm install rancher rancher-stable/rancher \
   --set hostname=myrancherminikube.com \
   --set replicas=3 \
   --set bootstrapPassword=admin \
-  --version=2.7.0 \
+  --version=2.7.5 \
   --wait
