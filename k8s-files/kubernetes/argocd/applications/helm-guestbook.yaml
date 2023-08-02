@@ -5,6 +5,8 @@ metadata:
   namespace: argocd
   labels:
     name: helm-guestbook
+  annotations:
+    link.argocd.argoproj.io/external-link: http://my-grafana.com/pre-generated-link
 spec:
   destination:
     name: ''
@@ -14,6 +16,9 @@ spec:
     path: helm-guestbook
     repoURL: 'https://github.com/argoproj/argocd-example-apps.git'
     targetRevision: HEAD
+  info:
+    - name: Owner
+      value: 'I am the owner'
   project: default
   syncPolicy:
     automated:
