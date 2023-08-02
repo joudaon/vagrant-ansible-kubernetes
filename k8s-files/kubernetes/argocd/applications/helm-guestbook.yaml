@@ -17,7 +17,7 @@ spec:
     repoURL: 'https://github.com/argoproj/argocd-example-apps.git'
     targetRevision: HEAD
   info:
-    - name: Owner
+    - name: 'Owner'
       value: 'I am the owner'
   project: default
   syncPolicy:
