@@ -4,7 +4,7 @@
 minikube config set driver docker
 
 ## Start Minikube
-minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=4 --memory=8gb
+minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=4 --memory=8gb --kubernetes-version=v1.26.3
 
 ############
 ## ARGOCD ##
@@ -113,21 +113,6 @@ helm install rancher rancher-stable/rancher \
   --set bootstrapPassword=admin \
   --version=2.7.5 \
   --wait
-
-# ############
-# ## GITLAB ##
-# ############
-
-# echo "--> Installing gitlab repository"
-# helm repo add gitlab https://charts.gitlab.io/
-# helm repo update
-# helm upgrade --install gitlab gitlab/gitlab \
-#   --set global.hosts.domain=mygitlabminikube.com \
-#   --set global.hosts.externalIP=10.10.10.10 \
-#   --set certmanager-issuer.email=me@example.com \
-#   --set postgresql.image.tag=13.6.0
-
-# GITLAB_PASSOWRD=$(kubectl get secret gitlab-gitlab-initial-root-password -ojsonpath='{.data.password}' | base64 --decode ; echo)
 
 echo ""
 echo "**** INSTALLATION FINISHED! ****"

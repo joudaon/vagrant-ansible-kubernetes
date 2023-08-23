@@ -2,7 +2,7 @@
 
 ## Start minikube
 echo "--> Starting minikube"
-minikube start --memory 8192 --cpus 4 --kubernetes-version=v1.24.0
+minikube start --memory 8192 --cpus 4 --kubernetes-version=v1.26.3
 minikube addons enable metrics-server
 minikube addons enable ingress
 
@@ -32,7 +32,7 @@ helm install rancher rancher-stable/rancher \
   --namespace cattle-system \
   --set ingress.tls.source=rancher \
   --set hostname=myrancherminikube.com \
-  --set replicas=3 \
+  --set replicas=2 \
   --set bootstrapPassword=admin \
   --version=2.7.5 \
   --wait
