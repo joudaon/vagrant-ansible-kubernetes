@@ -1,10 +1,11 @@
 #!/bin/bash
 
-## Set docker as default driver
-minikube config set driver docker
+## Set virtualbox as default driver
+minikube config set driver virtualbox
 
 ## Start Minikube
-minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=4 --memory=8gb
+echo "--> Starting minikube cluster-1"
+minikube start --addons=dashboard --addons=metrics-server --addons=ingress --addons=registry --cpus=2 --memory=8gb -p cluster-1
 
 ## Install argocd
 echo "--> Installing argocd"
@@ -31,9 +32,13 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argoc
 echo "--> Installation finished!"
 NODEPORT=$(kubectl get service argocd-service --namespace=argocd -ojsonpath='{.spec.ports[0].nodePort}')
 ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-echo "argocd URL --> $(minikube ip):$NODEPORT"
+echo "argocd URL --> $(minikube ip -p cluster-1):$NODEPORT"
 echo "argocd username --> admin"
 echo "argocd password --> $ARGOCD_PASSWORD"
 
 # Create sample applications
 # kubectl apply -f bootstrap.yaml
+
+## Start Minikube
+echo "--> Starting minikube cluster-2"
+minikube start --cpus=2 --memory=8gb -p cluster-2

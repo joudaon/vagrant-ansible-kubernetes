@@ -109,11 +109,19 @@ Login into argocd cli and run the following command:
 
 ```sh
 $> argocd login localhost:8080 --username admin
-$> argocd cluster add cluster2
+$> argocd cluster add cluster-2
 $> argocd cluster list
 ```
 
 Update application yaml to point destination cluster name to `cluster2`
+
+## Download argocd CLI
+
+Download argocd CLI from: `curl -sSL -o /usr/local/bin/argocd https://${ARGOCD_SERVER}/download/argocd-linux-amd64`
+
+## Useful information
+
+If you are using 2 clusters use `VirtualBox` Minikube driver. If you are going to work with 1 cluster use `docker` driver instead.
 
 # Documentation
 
@@ -122,4 +130,3 @@ Update application yaml to point destination cluster name to `cluster2`
 - [Helm chart + values files from Git](https://github.com/argoproj/argo-cd/issues/2789#issuecomment-574821873)
 - [Feature: External Helm values from git](https://github.com/argoproj/argo-cd/pull/6280)
 - [One option to setup an app-of-apps example in Argo CD](https://suedbroecker.net/2022/08/22/one-option-to-setup-an-app-of-apps-example-in-argo-cd/)
-- [](https://github.com/argoproj/argo-cd/issues/4204)

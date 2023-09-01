@@ -16,6 +16,10 @@
 
 3. Go to: `https://myrancherminikube.com`.
 
+## Useful information
+
+If you are using 2 clusters use `VirtualBox` Minikube driver. If you are going to work with 1 cluster use `docker` driver instead.
+
 ## Useful links
 
 - [rancher helm repo](https://artifacthub.io/packages/helm/rancher-stable/rancher?modal=install)

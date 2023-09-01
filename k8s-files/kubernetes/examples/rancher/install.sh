@@ -1,10 +1,11 @@
 #!/bin/bash
 
+## Set virtualbox as default driver
+minikube config set driver virtualbox
+
 ## Start minikube
-echo "--> Starting minikube"
-minikube start --memory 8192 --cpus 4 --kubernetes-version=v1.26.3
-minikube addons enable metrics-server
-minikube addons enable ingress
+echo "--> Starting minikube cluster-1"
+minikube start --addons=metrics-server --addons=ingress --memory 8192 --cpus 2 --kubernetes-version=v1.26.3 -p cluster-1
 
 # Add the Jetstack Helm repository (for cert-manager)
 echo "--> Adding rancher repository"
@@ -36,3 +37,7 @@ helm install rancher rancher-stable/rancher \
   --set bootstrapPassword=admin \
   --version=2.7.5 \
   --wait
+
+## Start minikube
+echo "--> Starting minikube cluster-2"
+minikube start --memory 8192 --cpus 2 --kubernetes-version=v1.26.3 -p cluster-2
