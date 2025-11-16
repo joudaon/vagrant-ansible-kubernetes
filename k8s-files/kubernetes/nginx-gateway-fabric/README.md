@@ -1,5 +1,11 @@
 # nginx gateay fabric example
 
+## How to
+
+Run `setup.sh` script to create Kind Cluster, install Gateway API and example applications.
+
+Run `delete.sh` script to delete everything.
+
 ## architecture
 
 ![resource-model](resource-model.png)
