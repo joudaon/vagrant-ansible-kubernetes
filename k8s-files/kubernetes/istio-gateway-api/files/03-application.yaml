@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app1-ns
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: iphone-routes
+  namespace: app1-ns
+spec:
+  parentRefs:
+    - name: gateway-intranet
+      namespace: istio-intranet
+      sectionName: http
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: "/"
+      backendRefs:
+        - name: iphone-svc
+          port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iphone-svc
+  namespace: app1-ns
+spec:
+  selector:
+    app: iphone-page
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+# Sticky session
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: iphone-sticky
+  namespace: app1-ns
+spec:
+  host: iphone-svc
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        httpCookie:
+          name: iphone-cookie       # Nombre de la cookie que Istio creará
+          ttl: 0s                   # Duración de la cookie, 0s = sesión
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iphone-deploy
+  namespace: app1-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: iphone-page
+  template:
+    metadata:
+      labels:
+        app: iphone-page
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        command: ["/bin/sh"]
+        args:
+          - -c
+          - |
+            echo "<h1>Pod: $POD_NAME</h1>" > /usr/share/nginx/html/index.html
+            nginx -g 'daemon off;'
+        ports:
+          - containerPort: 80
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name

@@ -19,3 +19,4 @@ Run `delete.sh` script to delete everything.
 - [ArtifactHub - Istio cni](https://artifacthub.io/packages/helm/istio-official/cni)
 - [ArtifactHub - Istio ztunnel](https://artifacthub.io/packages/helm/istio-official/ztunnel)
 - [ArtifactHub - Istio ambient (umbrella)](https://artifacthub.io/packages/helm/istio-official/ambient)
+- [marcel-dempers / docker-development-youtube-series](https://github.com/marcel-dempers/docker-development-youtube-series/tree/master/kubernetes/gateway-api/istio)
