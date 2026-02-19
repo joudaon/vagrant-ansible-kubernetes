@@ -45,7 +45,7 @@ helm install istio-base istio/base -n istio-system --create-namespace --wait
 echo "🚀 Installing istiod control plane"
 # helm show values istio/istiod # view values
 # helm pull istio/istiod --untar # optionally untar
-helm install istiod istio/istiod --namespace istio-system --set profile=ambient --set enableGatewayAPI=false --set pilot.env.ENABLE_GATEWAY_API=false --set components.gatewayAPI.enabled=false --wait
+helm install istiod istio/istiod --namespace istio-system --set profile=ambient --wait
 echo "🚀 Installing CNI node agent"
 helm install istio-cni istio/cni -n istio-system --set profile=ambient --wait
 echo "🚀 Installing ztunnel"
