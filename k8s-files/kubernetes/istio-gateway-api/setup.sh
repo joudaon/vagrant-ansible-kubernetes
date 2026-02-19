@@ -60,7 +60,7 @@ echo "🚀 Deploying gateway"
 kubectl apply -f files/02-gateway.yaml
 echo "🚀 Deploying application (ns, httproute, svc, dp)"
 kubectl apply -f files/03-application.yaml
-sleep 15s
+sleep 20s
 
 echo "✅ Application deployed!"
 
@@ -69,7 +69,8 @@ echo "🔗 Please access to: http://localhost:31000"
 echo "🌍 Test load"
 for i in {1..20}; do curl localhost:31000; done
 
-echo "Test load with cookies"
+echo ""
+echo "🌍Test load with cookies"
 # Create first cookie session
 curl -c cookies.txt http://localhost:31000/
 # Send the saved cookie
