@@ -1,3 +1,6 @@
+#############
+## Intranet #
+#############
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -46,3 +49,56 @@ data:
           port: 80
           targetPort: 80
           nodePort: 31000
+---
+
+#############
+## Internet #
+#############
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-internet
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gateway-internet
+  namespace: istio-internet
+spec:
+  gatewayClassName: istio-gatewayclass-internet
+  infrastructure:
+    labels:
+      app: istio-gateway
+    parametersRef:
+      group: ""
+      kind: ConfigMap
+      name: gateway-internet-config  
+  # Only Routes from the same namespace are allowed.
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 8080
+      allowedRoutes:
+        namespaces:
+          from: All  #or All or Selector
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-internet-config
+  namespace: istio-internet
+data:
+  deployment: |
+    metadata:
+      annotations:
+        gateway-default-setting: test
+    spec:
+      replicas: 3
+  service: |
+    spec:
+      type: NodePort
+      ports:
+        - name: http
+          port: 8080
+          targetPort: 8080
+          nodePort: 31001

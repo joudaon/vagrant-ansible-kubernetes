@@ -12,3 +12,4 @@ CLUSTER_NAME="myk8scluster"
 # ─────────────────────────────────────────────────────────────
 echo "🧹 Deleting existing Kind cluster '$CLUSTER_NAME' (if any)..."
 kind delete cluster --name "$CLUSTER_NAME" || true
+rm -rf cookies*

@@ -5,3 +5,11 @@ metadata:
 spec:
   controllerName: istio.io/gateway-controller
   description: Intranet Gateway
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: istio-gatewayclass-internet
+spec:
+  controllerName: istio.io/gateway-controller
+  description: Internet Gateway

@@ -11,5 +11,7 @@ nodes:
     extraPortMappings:
       - containerPort: 31000 # Port inside the KIND container
         hostPort: 31000 # Port on your local machine (host system). 
+      - containerPort: 31001 # Port inside the KIND container
+        hostPort: 31001 # Port on your local machine (host system). 
         # If this were set to 9090, you would access the service at localhost:9090, 
         # and traffic would be forwarded to containerPort 31000 inside the KIND cluster.
