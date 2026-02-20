@@ -1,4 +1,4 @@
-# istio ambien mode gateway api example
+# istio ambient mode gateway api example
 
 ## How to
 
@@ -6,9 +6,94 @@ Run `setup.sh` script to create Kind Cluster, install Gateway API and example ap
 
 Run `delete.sh` script to delete everything.
 
-## architecture
+## Architecture
 
 ![resource-model](resource-model.png)
+
+## Expected Result
+
+After deployment, the following components should be successfully running:
+
+- Two **NodePort Ingresses**:
+  - **Intranet** exposure
+  - **Internet** exposure  
+- Two applications, each deployed with **2 replicas**
+  - Each application is exposed through its corresponding ingress scope (intranet or internet)
+
+### Access Points
+
+Both endpoints must be reachable:
+
+- Intranet: http://localhost:31000
+- Internet: http://localhost:31001
+
+
+### Validation Criteria
+
+1. **Connectivity**
+   - Both URLs are accessible from the browser or via `curl`.
+
+2. **Load Balancing**
+   - Without cookies, requests should be distributed between the two replicas.
+
+3. **Sticky Sessions**
+   - When cookies are enabled, repeated requests should consistently reach the same replica, confirming session affinity is working as expected.
+
+If all the above conditions are met, the ingress configuration and sticky session behavior are correctly configured.
+
+```sh
+🌍 Intranet Test load
+<h1>Pod intranet: iphone-deploy-85bf887d7-pqcv2</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-pqcv2</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-pqcv2</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-pqcv2</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-pqcv2</h1>
+
+🌍 Intranet Test load with cookies
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+<h1>Pod intranet: iphone-deploy-85bf887d7-r28lh</h1>
+
+🌍 Internet Test load
+<h1>Pod internet: iphone-deploy-7547c8c46f-2qdqd</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-2qdqd</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-2qdqd</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-2qdqd</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-2qdqd</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+
+🌍 Internet Test load with cookies
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+<h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
+``` 
+
+
 
 ## Useful links
 
