@@ -12,30 +12,54 @@ Run `delete.sh` script to delete everything.
 
 ## Description
 
-This project uses **Istio Ambient Mode** combined with the **Kubernetes Gateway API** to manage service-to-service communication in a secure and efficient way.
+This project implements **Istio Ambient Mode** using the official Helm charts from [ArtifactHub](https://artifacthub.io/packages/helm/istio-official) for a modern, sidecar-free service mesh:
 
-**Istio Ambient Mode** is a lightweight service mesh mode that eliminates the need for sidecar proxies in each pod. Instead of injecting Envoy sidecars, Ambient Mode uses:
+- [Istio Base](https://artifacthub.io/packages/helm/istio-official/base) – core Istio CRDs and base components  
+- [Istiod](https://artifacthub.io/packages/helm/istio-official/istiod) – control plane managing certificates, traffic policies, and mesh configuration  
+- [Istio CNI](https://artifacthub.io/packages/helm/istio-official/cni) – node-level network plugin that redirects pod traffic to ztunnels  
+- [Istio ztunnel](https://artifacthub.io/packages/helm/istio-official/ztunnel) – lightweight node-level proxy handling mTLS and intra-mesh routing  
 
-- **ztunnel**: a node-level lightweight proxy that intercepts pod traffic and enforces **mTLS** (mutual TLS), routing, and policy enforcement without touching the application pods.
-- **Envoy Gateways**: L7 HTTP/HTTPS gateways that handle routing, virtual hosts, ingress/egress, and access logging.
-- **Istiod**: the control plane that distributes certificates, applies traffic policies, and configures the mesh.
+---
 
-**Key benefits of Ambient Mode with Gateway API:**
+### What is Istio Ambient Mode?
 
-- **No sidecar injection:** reduces CPU/memory overhead and simplifies pod deployment.
-- **Secure by default:** automatic mTLS between services managed at the node level.
-- **Centralized L7 routing:** HTTPRoute and Gateway API resources control traffic flow via Envoy gateways.
-- **Observability:** access logs, metrics, and telemetry are collected centrally through gateways and ztunnels.
-- **Simplified CI/CD:** pods remain lightweight, and mesh policies are applied without modifying deployments.
+**Istio Ambient Mode** is a lightweight service mesh mode that eliminates the need for Envoy sidecars in each pod. Instead of injecting proxies per pod, Ambient Mode uses:
 
-**How traffic flows in Ambient Mode with Gateway API:**
+- **ztunnel**: intercepts pod traffic at the node level, enforcing **mTLS** (mutual TLS), routing, and policy enforcement without modifying pods.  
+- **Istio CNI**: ensures all pod traffic is redirected into ztunnel automatically using iptables.  
+- **Envoy Gateways**: L7 HTTP/HTTPS gateways that handle routing, virtual hosts, ingress/egress, and access logging.  
+- **Istiod**: the control plane that distributes certificates, applies traffic policies, and configures the mesh.  
 
-1. A pod sends a request to another service.
-2. The request is intercepted by the local **ztunnel**, which enforces mTLS and routes traffic.
-3. The request may pass through an **Envoy Gateway** if it targets L7 traffic or cross-namespace access.
-4. The target pod receives the traffic without a sidecar, while Istiod manages certificates, policy, and telemetry.
+This architecture allows pods to remain lightweight while the mesh provides full security and observability.
 
-This approach provides a secure, low-overhead service mesh while leveraging the modern **Kubernetes Gateway API** for declarative traffic routing and ingress management.
+---
+
+### Ambient Mode with Kubernetes Gateway API
+
+In this setup, traffic is managed declaratively via **Gateway API** resources:
+
+- **Gateway**: defines the entry points for L7 traffic and listens on specific ports.  
+- **HTTPRoute**: specifies how requests are routed to services based on hostnames, paths, or headers.  
+
+Traffic flow works as follows:
+
+1. A pod sends a request to another service.  
+2. The **Istio CNI** redirects the request to the local **ztunnel**.  
+3. **ztunnel** applies **mTLS** and routes the traffic.  
+4. If the request matches a **Gateway** and **HTTPRoute**, it passes through the **Envoy Gateway** for L7 routing, virtual host selection, and policy enforcement.  
+5. The destination pod receives the traffic **without a sidecar**, fully secured and observable.  
+
+---
+
+### Key Benefits
+
+- **Sidecar-free pods** → lower CPU/memory overhead, faster deployments  
+- **Automatic mTLS** → secure pod-to-pod communication at the node level  
+- **Centralized L7 routing** → via Gateway API and HTTPRoute resources  
+- **Observability** → logs, metrics, and telemetry collected at ztunnel and gateways  
+- **Simplified CI/CD** → pods remain unchanged while mesh policies are applied  
+
+This approach leverages the **modern Kubernetes Gateway API** for declarative traffic routing while providing a secure, low-overhead service mesh.
 
 ## Expected Result
 
