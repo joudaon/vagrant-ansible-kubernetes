@@ -45,7 +45,8 @@ helm install istio-base istio/base -n istio-system --create-namespace --wait
 echo "🚀 Installing istiod control plane"
 # helm show values istio/istiod # view values
 # helm pull istio/istiod --untar # optionally untar
-helm install istiod istio/istiod --namespace istio-system --set profile=ambient --wait
+helm install istiod istio/istiod --namespace istio-system --set profile=ambient --set meshConfig.accessLogFile=/dev/stdout --wait
+# helm install istiod istio/istiod --namespace istio-system --set profile=ambient --set meshConfig.accessLogFile=/dev/stdout --set meshConfig.accessLogEncoding=JSON --set-string values.meshConfig.accessLogFormat="{\"start_time\":\"%START_TIME%\"\,\"method\":\"%REQ(:METHOD)%\"\,\"path\":\"%REQ(:PATH)%\"\,\"protocol\":\"%PROTOCOL%\"\,\"response_code\":\"%RESPONSE_CODE%\"\,\"duration_ms\":\"%DURATION%\"\,\"bytes_sent\":\"%BYTES_SENT%\"\,\"bytes_received\":\"%BYTES_RECEIVED%\"\,\"client_ip\":\"%DOWNSTREAM_REMOTE_ADDRESS%\"\,\"upstream_host\":\"%UPSTREAM_HOST%\"\,\"request_id\":\"%REQUEST_ID%\"}" --wait
 echo "🚀 Installing CNI node agent"
 helm install istio-cni istio/cni -n istio-system --set profile=ambient --wait
 echo "🚀 Installing ztunnel"
@@ -62,6 +63,10 @@ echo "🚀 Deploying application (ns, httproute, svc, dp)"
 kubectl apply -f files/03-application.yaml
 sleep 25s
 
+# ─────────────────────────────────────────────────────────────
+# ✅ Finished
+# ─────────────────────────────────────────────────────────────
+echo ""
 echo "✅ Application deployed!"
 
 echo "🔗 Please access intranet to: http://localhost:31000"

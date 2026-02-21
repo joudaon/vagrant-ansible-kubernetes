@@ -93,8 +93,6 @@ If all the above conditions are met, the ingress configuration and sticky sessio
 <h1>Pod internet: iphone-deploy-7547c8c46f-kt4vn</h1>
 ``` 
 
-
-
 ## Useful links
 
 - [Gateway API](https://gateway-api.sigs.k8s.io/)
@@ -105,3 +103,4 @@ If all the above conditions are met, the ingress configuration and sticky sessio
 - [ArtifactHub - Istio ztunnel](https://artifacthub.io/packages/helm/istio-official/ztunnel)
 - [ArtifactHub - Istio ambient (umbrella)](https://artifacthub.io/packages/helm/istio-official/ambient)
 - [marcel-dempers / docker-development-youtube-series](https://github.com/marcel-dempers/docker-development-youtube-series/tree/master/kubernetes/gateway-api/istio)
+- [Global mesh options](https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1/)
