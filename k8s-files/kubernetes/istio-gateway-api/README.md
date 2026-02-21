@@ -10,6 +10,33 @@ Run `delete.sh` script to delete everything.
 
 ![resource-model](resource-model.png)
 
+## Description
+
+This project uses **Istio Ambient Mode** combined with the **Kubernetes Gateway API** to manage service-to-service communication in a secure and efficient way.
+
+**Istio Ambient Mode** is a lightweight service mesh mode that eliminates the need for sidecar proxies in each pod. Instead of injecting Envoy sidecars, Ambient Mode uses:
+
+- **ztunnel**: a node-level lightweight proxy that intercepts pod traffic and enforces **mTLS** (mutual TLS), routing, and policy enforcement without touching the application pods.
+- **Envoy Gateways**: L7 HTTP/HTTPS gateways that handle routing, virtual hosts, ingress/egress, and access logging.
+- **Istiod**: the control plane that distributes certificates, applies traffic policies, and configures the mesh.
+
+**Key benefits of Ambient Mode with Gateway API:**
+
+- **No sidecar injection:** reduces CPU/memory overhead and simplifies pod deployment.
+- **Secure by default:** automatic mTLS between services managed at the node level.
+- **Centralized L7 routing:** HTTPRoute and Gateway API resources control traffic flow via Envoy gateways.
+- **Observability:** access logs, metrics, and telemetry are collected centrally through gateways and ztunnels.
+- **Simplified CI/CD:** pods remain lightweight, and mesh policies are applied without modifying deployments.
+
+**How traffic flows in Ambient Mode with Gateway API:**
+
+1. A pod sends a request to another service.
+2. The request is intercepted by the local **ztunnel**, which enforces mTLS and routes traffic.
+3. The request may pass through an **Envoy Gateway** if it targets L7 traffic or cross-namespace access.
+4. The target pod receives the traffic without a sidecar, while Istiod manages certificates, policy, and telemetry.
+
+This approach provides a secure, low-overhead service mesh while leveraging the modern **Kubernetes Gateway API** for declarative traffic routing and ingress management.
+
 ## Expected Result
 
 After deployment, the following components should be successfully running:
